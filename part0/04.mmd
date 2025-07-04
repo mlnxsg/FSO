@@ -2,6 +2,7 @@ sequenceDiagram
     participant browser
     participant server
 
+    Note right of browser:  User fills form and clicks "Save"
     browser->>server: POST https://studies.cs.helsinki.fi/exampleapp/new_note
     activate server
     Note right of browser: Form data is sent with HTTP POST. The server creates a new note object, and adds it to an array called 'notes'.
