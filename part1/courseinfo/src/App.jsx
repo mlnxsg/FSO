@@ -1,65 +1,68 @@
-const Header = (props) => {
-  console.log(props)
-  return(
-    <h1> {props.course}</h1>
-  )
-}
+import Course from './Components/Course'
 
-const Part = (props) => {
-  return(
-    <p>{props.name} {props.exercises}</p>
-  )
-}
-
-const Content = (props) => {
-  console.log(props)
-  return(
-    <div>
-      {props.parts.map((part, index) => 
-        <Part key={index} name={part.name} exercises={part.exercises} />
-      )}
-    </div>
-  )
-}
-
-const Total = (props) => {
-  return(
-    <p>
-      Number of exercises {
-        props.parts[0].exercises +
-        props.parts[1].exercises +
-        props.parts[2].exercises
-      }
-    </p>
-  )
-}
+const Total = ({ parts }) => (
+  <p>
+    <strong>total of {parts.reduce((sum, part) => sum + part.exercises, 0)} exercises</strong>
+  </p>
+)
 
 const App = () => {
-  const course = {
-    name: 'Half Stack application development',
-    parts: [
-      {
-        name: 'Fundamentals of React',
-        exercises: 10
-      },
-      {
-        name: 'Using props to pass data',
-        exercises: 7
-      },
-      {
-        name: 'State of a component',
-        exercises: 14
-      }
-    ]
-  }
+  const courses = [
+    {
+      name: 'Half Stack application development',
+      id: 1,
+      parts: [
+        {
+          name: 'Fundamentals of React',
+          exercises: 10,
+          id: 1
+        },
+        {
+          name: 'Using props to pass data',
+          exercises: 7,
+          id: 2
+        },
+        {
+          name: 'State of a component',
+          exercises: 14,
+          id: 3
+        },
+        {
+          name: 'Redux',
+          exercises: 11,
+          id: 4
+        }
+      ]
+    }, 
+    {
+      name: 'Node.js',
+      id: 2,
+      parts: [
+        {
+          name: 'Routing',
+          exercises: 3,
+          id: 1
+        },
+        {
+          name: 'Middlewares',
+          exercises: 7,
+          id: 2
+        }
+      ]
+    }
+  ]
 
-  return (
+  return(
     <div>
-      <Header course={course.name} />
-      <Content parts={course.parts} />
-      <Total parts={course.parts} />
+      {courses.map(course => (
+        <div key={course.id}>
+          <Course course={course} />
+          <Total parts={course.parts} />
+        </div>
+      ))}
     </div>
   )
 }
 
 export default App
+
